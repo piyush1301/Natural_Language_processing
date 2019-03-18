@@ -1,2 +1,2 @@
-# Natural_Language_processing
-Python+Flask+NLP code to analyst the given set of code with categories such as the names of persons, organizations, locations, expressions of times, quantities, monetary values, percentages, etc.
+# Named-Entity-Extractor
+A simple Flask API for named entity extraction using spaCy Model
