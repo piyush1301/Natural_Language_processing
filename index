@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>SLA Prediction</title>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1" name="viewport">
+    <style>
+* {
+  box-sizing: border-box;
+}
+a:hover {
+  background-position: bottom;
+  background-repeat: repeat-x;
+  background-size: 20%;
+  border-bottom: 0;
+  padding-bottom: .3em;
+  text-decoration: none;
+  color: Green;
+}
+#table-scroll {
+  height:550px;
+  overflow:auto;
+  margin-top:4px;
+}
+
+
+input[type=submit] {
+  width: 40%;
+  height : 20;
+  background-color: white;
+  color: black;
+  padding: 10px;
+  margin: 10px 0;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+input[type=button] {
+  width: 40%;
+  background-color: white;
+  color: black;
+  padding: 10px;
+  margin: 10px 0;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.hover{
+  width: 50%;
+  background-color: Green;
+  color: black;
+  padding: 10px;
+  margin: 10px 0;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+
+/* Style the header */
+header {
+    background-color:#0D0F0A;
+    padding-left: 20px;
+    font-family: Times New Roman;
+    text-align: left;
+    font-size: 30px;
+    color: white;
+    border: 1px solid white;
+}
+        
+section {
+    border: 1px solid white;
+}
+
+/* Create two columns/boxes that floats next to each other */
+nav {
+
+  float: left;
+  width: 20%;
+  height: 550px; /* only for demonstration, should be removed */
+  background: black;
+  padding:0px;
+}
+
+/* Style the list inside the menu */
+nav ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+article {
+    float: left;
+    margin-top: -3px;
+    padding-left: 10px;
+    padding-right: 10px;
+    width: 80%;
+    height: 550px;
+}
+
+
+
+/* Clear floats after the columns */
+section:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+/* Style the footer */
+footer {
+  background-color: #777;
+  padding: 10px;
+  text-align: center;
+  color: white;
+}
+
+table {
+  font-family: arial, sans-serif;
+  font-size: 12px;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+td, th {
+  border: 1px solid #dddddd;
+  text-align: left;
+  font-size:12px;
+  padding: 4px;
+}
+
+tr:nth-child(even) {
+  background-color: #dddddd;
+}
+
+
+/* Responsive layout - makes the two columns/boxes stack on top of each other instead of next to each other, on small screens */
+/*@media (max-width: 600px) {
+  nav, article {
+    width: 100%;
+    height: auto;
+  }
+}*/
+
+
+
+
+
+
+    </style>
+</head>
+<body>
+
+
+
+<script>
+
+setTimeout(function() {
+  location.reload();
+}, 120000);
+
+</script>
+
+
+<header style="color:White; vertical-align: middle;">
+    <img src="{{ url_for('static', filename='logoSLA.png') }}" width="300px">
+    <div style="display: inline; margin-left: 330px;"></div>
+</header>
+<section>
+    <nav>
+        <ul>
+            <center>
+                <div style="border: 1px solid white; margin: 5px; padding: 3px;">
+                    <span style='color: White'> TOTAL INCIDENTS <br> {{total}} </span>
+                    <hr style="color: White" />                   
+                    <span style='color: Salmon'> HIGHLY LIKELY TO BREACH <br> {{highly_likely_count}} </span>
+                    <hr style="color: White" />                   
+                    <span style='color: Gold'> LIKELY TO BREACH <br> {{likely_count}} </span>
+                    <hr style="color: White" />                    
+                    <span style='color: PaleGreen'> NOT LIKELY TO BREACH <br> {{not_likely_count}} </span>
+					<hr style="color: White" />                    
+                    <span style='color: Cyan'> NO PREDICTION <br> {{ntpredcount}} </span>
+                </div>
+                
+                <br/>
+                
+                
+
+                
+                <script>
+
+    if("{{filesave}}"=="1")
+    {
+        alert("file has been saved to your disk");
+    }
+            function check()
+            {
+                var xp="{{data}}"
+                if (xp.length==0)
+                {
+                    alert('Nothing to Download.. 😕');
+                    return false;
+                }
+                else
+                {
+                    return true;
+                }
+            }
+            function check_file()
+            {
+                var xp=namemain.file.value;
+                if (xp=='')
+                {
+                    alert('Please Provide file.. 😓');
+                    return false;
+                }
+                else
+                {
+                    return true;
+                }
+            }
+
+                </script>
+            </center>
+        </ul>
+    </nav>
+    <article>
+        <div id="table-wrapper">
+            <div id="table-scroll">
+
+                <font color="Black" style="font-weight: bold">
+                    <div align="center" style="font-size: 80%;" width="100%">
+                        <table border="2">
+                            <tr style="color:white;background-color:Green;font-style: italic;border:1px solid black">
+                                <td style="font-size:1.0em;border:1px solid black">Incident Number</td>
+                                <td style="font-size:1.0em;border:1px solid black">Audit Date</td>
+                                <td style="font-size:1.0em;border:1px solid black">Hours in the System</td>
+                                <td style="font-size:1.0em;border:1px solid black">Priority</td>
+                                <td style="font-size:1.0em;border:1px solid black">Supplier</td>
+                                <td style="font-size:1.0em;border:1px solid black">Status</td>
+                                <td style="font-size:1.0em;border:1px solid black">SLA Breach Probability</td>
+                            </tr>
+                            {% for idx, row in data.iterrows(): %}
+							{% if row['SLA_BREACH_PROBABILITY'] < 0.0: %}
+							<tr>
+                                <td bgcolor="Gray">{{row['INCIDENT_NUMBER']}}</td>
+                                <td bgcolor="Gray">{{row['AUDIT_DATE']}}</td>
+                                <td bgcolor="Gray">{{row['HOURS_IN_THE_SYSTEM']}}</td>
+                                <td bgcolor="Gray">{{row['PRIORITY']}}</td>
+                                <td bgcolor="Gray">{{row['SUPPLIER']}}</td>
+                                <td bgcolor="Gray">{{row['LOG_STATUS']}}</td>
+                                <td bgcolor="Gray">{{row['SLA_BREACH_PROBABILITY']}}</td>
+                            </tr>							
+                            {% elif row['SLA_BREACH_PROBABILITY'] <= 0.3: %}
+                            <tr>
+                                <td bgcolor="PaleGreen">{{row['INCIDENT_NUMBER']}}</td>
+                                <td bgcolor="PaleGreen">{{row['AUDIT_DATE']}}</td>
+                                <td bgcolor="PaleGreen">{{row['HOURS_IN_THE_SYSTEM']}}</td>
+                                <td bgcolor="PaleGreen">{{row['PRIORITY']}}</td>
+                                <td bgcolor="PaleGreen">{{row['SUPPLIER']}}</td>
+                                <td bgcolor="PaleGreen">{{row['LOG_STATUS']}}</td>
+                                <td bgcolor="PaleGreen">{{row['SLA_BREACH_PROBABILITY']}}</td>
+                            </tr>
+                            {% elif row['SLA_BREACH_PROBABILITY'] <= 0.7: %}
+                            <tr>
+                                <td bgcolor="Gold">{{row['INCIDENT_NUMBER']}}</td>
+                                <td bgcolor="Gold">{{row['AUDIT_DATE']}}</td>
+                                <td bgcolor="Gold">{{row['HOURS_IN_THE_SYSTEM']}}</td>
+                                <td bgcolor="Gold">{{row['PRIORITY']}}</td>
+                                <td bgcolor="Gold">{{row['SUPPLIER']}}</td>
+                                <td bgcolor="Gold">{{row['LOG_STATUS']}}</td>
+                                <td bgcolor="Gold">{{row['SLA_BREACH_PROBABILITY']}}</td>
+                            </tr>
+                            {% else: %}
+                            <tr>
+                                <td bgcolor="Salmon">{{row['INCIDENT_NUMBER']}}</td>
+                                <td bgcolor="Salmon">{{row['AUDIT_DATE']}}</td>
+                                <td bgcolor="Salmon">{{row['HOURS_IN_THE_SYSTEM']}}</td>
+                                <td bgcolor="Salmon">{{row['PRIORITY']}}</td>
+                                <td bgcolor="Salmon">{{row['SUPPLIER']}}</td>
+                                <td bgcolor="Salmon">{{row['LOG_STATUS']}}</td>
+                                <td bgcolor="Salmon">{{row['SLA_BREACH_PROBABILITY']}}</td>
+                            {% endif %} 
+                            {%endfor%}
+                        </table>
+                    </div>
+
+                </font>
+            </div>
+        </div>
+    </article>
+</section>
+</body>
+</html>
